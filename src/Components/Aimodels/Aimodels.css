@@ -48,3 +48,33 @@ border-radius: 20px;
 .arrow{
   cursor: pointer;
 }
+@media screen and (max-width:768px){
+  .right img{
+    height: 400px;
+    width: 400px;
+  }
+  .ComponentWrapper{
+    display: block;
+  }
+  .innerdiv{
+    display: block;
+  }
+  .left{
+    width: 250px;
+  }
+}
+@media screen and (max-width:568px){
+  .right img{
+    height: 200px;
+    width: 200px;
+  }
+  .ComponentWrapper{
+    display: block;
+  }
+  .innerdiv{
+    display: block;
+  }
+  .left{
+    width: 200px;
+  }
+}
