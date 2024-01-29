@@ -262,7 +262,11 @@ const Aimodels = () => {
                           target: { name: "guidance_scale", value },
                         })
                       }
-                      value={guidance_scale}
+                      value={
+                        typeof guidance_scale === "number"
+                          ? guidance_scale
+                          : 1
+                      }
                     />
                   </Col>
                   <Col span={4}>
@@ -271,7 +275,11 @@ const Aimodels = () => {
                       max={20}
                       style={{ margin: "0 16px" }}
                       name="guidance_scale"
-                      value={guidance_scale}
+                      value={
+                        typeof guidance_scale === "number"
+                          ? guidance_scale
+                          : 1
+                      }
                       onChange={handleInputChange}
                     />
                   </Col>
