@@ -1,0 +1,34 @@
+.ComponentWrapper {
+  padding: 6rem;
+  display: flex;
+
+  gap: 2rem;
+}
+.left {
+  width: 30%;
+}
+.right {
+  width: 60%;
+}
+.promtdiv {
+  padding: 1rem;
+  border: 1px solid grey;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.innerdiv{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+button{
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+.right img{
+  height: 600px;
+  width: 800px;
+}

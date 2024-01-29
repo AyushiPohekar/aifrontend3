@@ -1,0 +1,124 @@
+.ModelsPageDiv {
+  padding: 0 2rem;
+  
+}
+.imgdiv {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  place-items: center;
+  margin-left: 60px;
+  margin-right: 60px;
+  
+  justify-content: space-around;
+}
+.imgdiv img {
+  width: 320px;
+  height: 500px;
+  cursor: pointer;
+  border-radius: 20px;
+  
+}
+.imgdiv img:hover{
+  width: 330px;
+  height: 510px;
+}
+.imgTitle{
+  text-align: center;
+}
+.imgTitle p{
+  opacity: 0.5;
+}
+.HomeContent span{
+  font-size: 62px;
+}
+.HomeContent{
+  width: 40%;
+  margin-left: 200px;
+}
+.HomeContent2 img{
+  margin-right: 200px;
+  width: 70%;
+  margin-left: 100px;
+  box-shadow: 12px 5px 36px 18px rgba(0,0,0,0.64);
+-webkit-box-shadow: 12px 5px 36px 18px rgba(0,0,0,0.64);
+-moz-box-shadow: 12px 5px 36px 18px rgba(0,0,0,0.64);
+}
+.HomeContent button{
+  margin-top: 50px;
+  width: 180px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 15px;
+  box-shadow: -10px -5px 64px 0px rgba(218,103,147,0.75);
+-webkit-box-shadow: -10px -5px 64px 0px rgba(218,103,147,0.75);
+-moz-box-shadow: -10px -5px 64px 0px rgba(218,103,147,0.75);
+}
+.Home{
+  display: flex;
+  margin-top: 30px;
+}
+.cardDiv{
+  display: grid;
+  place-items: center;
+  justify-content: space-around;
+  grid-template-columns: repeat(2,1fr);
+  gap:10px;
+  margin-left:500px;
+  margin-right:500px
+}
+.card{
+  border: 1px solid black;
+  width: 400px;
+  border:none;
+  height: 250px;
+  border-radius: 15px;
+  background-color: white;
+  padding-left: 20px;
+  box-shadow: -8px 4px 28px 0px rgba(157,147,147,0.75);
+-webkit-box-shadow: -8px 4px 28px 0px rgba(157,147,147,0.75);
+-moz-box-shadow: -8px 4px 28px 0px rgba(157,147,147,0.75);
+}
+.AboutText{
+  margin-top: 100px;
+  text-align: center;
+}
+.AboutText span{
+  font-size: 50px;
+}
+
+  
+  
+  
+.card:hover{
+  box-shadow: -1px -3px 30px 0px rgba(224,88,204,0.84);
+-webkit-box-shadow: -1px -3px 30px 0px rgba(224,88,204,0.84);
+-moz-box-shadow: -1px -3px 30px 0px rgba(224,88,204,0.84);
+}
+      
+
+.card p{
+  color:gray;
+}
+.footerContent{
+  margin-top: 150px;
+  display: block;
+  text-align: center;
+
+
+}
+.footerContent span{
+  font-size: 60px;
+  font-weight: bold;
+}
+.footerContent p{
+  font-size: 20px;
+  color: gray;
+}
+.footerContent button{
+  width: 240px;
+  height: 60px;
+  font-size: 25px;
+  border-radius: 15px;
+  margin-top: 10px;
+}
