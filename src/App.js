@@ -14,8 +14,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<ModelsPage />} />
-        <Route path="/models" element={<ModelsPage />} />
-        <Route path="/trymodels" element={<TryModels />} />
+        {/* changemade */}
+        {/* <Route path="/models" element={<ModelsPage />} /> */}
+        <Route path="/models" element={<TryModels />} />
          
         <Route path="/models/:name" element={<Aimodels />} />
       </Routes>
