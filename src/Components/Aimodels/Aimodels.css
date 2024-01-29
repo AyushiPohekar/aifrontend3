@@ -32,19 +32,45 @@ button {
   height: 600px;
   width: 800px;
 }
-.prompttextarea{
+.prompttextarea {
   font-size: 0.9rem;
   font-weight: 400;
   overflow-y: auto;
-padding: 0.8rem;
-border: 0.5px solid gray;
-border-radius: 20px;
+  padding: 0.8rem;
+  border: 0.5px solid gray;
+  border-radius: 20px;
 }
-.Advanced{
+.promptinput {
+  font-size: 0.9rem;
+  font-weight: 400;
+
+  padding: 0.8rem;
+  border: 0.5px solid gray;
+  border-radius: 20px;
+}
+.Advanced {
   display: flex;
   align-items: center;
- 
 }
-.arrow{
+.arrow {
   cursor: pointer;
+}
+h3 {
+  margin:0
+}
+.checkboxdiv{
+  display: flex;
+  gap: 1rem;
+  padding: 0.3rem;
+
+}
+.genratebtn{
+  padding: 0.8rem 2rem;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
 }

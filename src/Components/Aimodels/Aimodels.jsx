@@ -3,6 +3,7 @@ import "./Aimodels.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { Col, InputNumber, Row, Slider, Space } from "antd";
 
 const Aimodels = () => {
   const location = useLocation();
@@ -11,22 +12,16 @@ const Aimodels = () => {
   const [image, setImage] = useState("");
   const [prompt, setPrompt] = useState("");
   const [seed, setSeed] = useState();
-  const [negativeprompt, setnegativePrompt] = useState("");
-  const [scheduler, setScheduler] = useState();
-  const [Steps, setSteps] = useState();
-  const [guidanceScale, setGuidanceScale] = useState();
-  const [inputValues, setInputValues] = useState({
-    prompt: "",
-    seed: "",
-    negativeprompt: "",
-    scheduler: "",
-    steps: "",
-    guidanceScale: "",
-  });
+  const [negative_prompt, setnegative_prompt] = useState("");
+  const [scheduler, setScheduler] = useState("");
+  const [num_inference_steps, setnum_inference_steps] = useState(1);
+
+  const [guidance_scale, setguidance_scale] = useState(1);
+
   const getdata = async () => {
     try {
       const res = await axios.get(
-        ` `
+        `https://www.segmind.com/_next/data/yJgtaEtIfBEDG2_1phHT1/models/${location.state.elemert.slug}.json?route=${location.state.elemert.slug}`
       );
       setDetails(res.data.pageProps);
     } catch (error) {
@@ -37,7 +32,7 @@ const Aimodels = () => {
   useEffect(() => {
     getdata();
   }, [location.state]);
-
+  console.log(details);
   useEffect(() => {
     updateStateIfPropertyExists("model.default_image_output", setImage);
     updateStateIfPropertyExists(
@@ -47,15 +42,21 @@ const Aimodels = () => {
     updateStateIfPropertyExists("model.parameters.seed.displayValue", setSeed);
     updateStateIfPropertyExists(
       "model.parameters.negative_prompt.displayValue",
-      setnegativePrompt
+      setnegative_prompt
     );
     updateStateIfPropertyExists(
       "model.parameters.guidance_scale.displayValue",
-      setGuidanceScale
+      setguidance_scale
+    );
+    updateStateIfPropertyExists(
+      "model.parameters.scheduler.displayValue",
+      setScheduler
+    );
+    updateStateIfPropertyExists(
+      "model.parameters.num_inference_steps.displayValue",
+      setnum_inference_steps
     );
   }, [details]);
-
-  console.log(details);
 
   const updateStateIfPropertyExists = (propertyPath, setter) => {
     const properties = propertyPath.split(".");
@@ -65,7 +66,7 @@ const Aimodels = () => {
       if (value && value[prop] !== undefined) {
         value = value[prop];
       } else {
-        return; // Property doesn't exist, exit early
+        return;
       }
     }
 
@@ -73,22 +74,30 @@ const Aimodels = () => {
   };
 
   const [advanced, setAdvancedtrue] = useState(false);
-
-  const handleChange = (e) => {
-    setPrompt(e.target.value);
+  let data = {
+    prompt,
+    negative_prompt,
+    scheduler,
+    num_inference_steps,
+    guidance_scale,
+    seed,
+    img_width: 1024,
+    img_height: 1024,
+    base64: false,
+    samples: 1,
   };
-  console.log(details?.model?.type);
   const fetchData = async () => {
     let url;
     const api_key = "SG_cdb02db099cb8b32";
     if (details?.model?.type == "textToImage") {
       url = `http://localhost:8000/wrapper/textToImage?name=${details?.model?.slug}`;
     }
-
+ console.log(data)
+    
     try {
       const response = await axios.post(
         url,
-        { prompt },
+        data,
         {
           headers: {
             "x-api-key": api_key,
@@ -107,47 +116,97 @@ const Aimodels = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "prompt":
+        setPrompt(value);
+        break;
+      case "seed":
+        setSeed(value);
+        break;
+      case "negative_prompt":
+        setnegative_prompt(value);
+        break;
+      case "scheduler":
+        setScheduler(value);
+        break;
+      case "num_inference_steps":
+        setnum_inference_steps(value);
+        break;
+      case "guidance_scale":
+        setguidance_scale(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="ComponentWrapper">
       <div className="left">
         <div className="promtdiv">
           <h3>Prompt</h3>
           <textarea
+            name="prompt"
             className="prompttextarea"
             rows={5}
             placeholder="Enter prompt here"
             value={prompt}
-            onChange={handleChange}
+            onChange={handleInputChange}
+            // onChange={handleChange}
           ></textarea>
-          <h4 className="Advanced">
+          <h3 className="Advanced">
             Advanced
             {!advanced ? (
-              <MdKeyboardArrowDown onClick={() => setAdvancedtrue(true)} className="arrow"/>
+              <MdKeyboardArrowDown
+                onClick={() => setAdvancedtrue(true)}
+                className="arrow"
+              />
             ) : (
-              <MdKeyboardArrowUp onClick={() => setAdvancedtrue(false)} className="arrow"/>
+              <MdKeyboardArrowUp
+                onClick={() => setAdvancedtrue(false)}
+                className="arrow"
+              />
             )}
-          </h4>
+          </h3>
 
           {advanced && (
             <>
               <div className="innerdiv">
-                <label>Seed</label>
-                <input type="number" value={seed} name="seed" />
-              </div>
-              <input type="checkbox" />
-              <sppan>Randomize seed</sppan>
-              <div className="innerdiv">
-                <label>Negative Prompt</label>
+                <h3>Seed</h3>
                 <input
+                  onChange={handleInputChange}
+                  type="number"
+                  value={seed}
+                  name="seed"
+                  className="promptinput"
+                />
+              </div>
+              <div className="checkboxdiv">
+                <input type="checkbox" />
+                <span>Randomize seed</span>
+              </div>
+
+              <div className="innerdiv">
+                <h3>Negative Prompt</h3>
+                <input
+                  onChange={handleInputChange}
                   type="text"
-                  value={negativeprompt}
-                  name="negativeprompt"
+                  value={negative_prompt}
+                  name="negative_prompt"
+                  className="promptinput"
                 />
               </div>
               <div className="innerdiv">
-                <label>Scheduler</label>
-                <select value={scheduler} name="scheduler">
-                  <option value={"DDIM"}>DDIM</option>
+                <h3>Scheduler</h3>
+                <select
+                  onChange={handleInputChange}
+                  value={scheduler}
+                  name="scheduler"
+                  className="promptinput"
+                >
+                  <option value="DDIM">DDIM</option>
                   <option value="DPM Multi">DPM Multi</option>
                   <option value="DPM Single">DPM Single</option>
                   <option value="Euler a">Euler a</option>
@@ -157,30 +216,72 @@ const Aimodels = () => {
                 </select>
               </div>
               <div className="innerdiv">
-                <label>Steps</label>
-                <input
-                  type="range"
-                  id="slider"
-                  min="0"
-                  max="100"
-                  step="1"
-                  value="50"
-                />
+                <h3>Steps</h3>
+                <Row>
+                  <Col span={12}>
+                    <Slider
+                      min={1}
+                      max={20}
+                      onChange={(value) =>
+                        handleInputChange({
+                          target: { name: "num_inference_steps", value },
+                        })
+                      }
+                      value={
+                        typeof num_inference_steps === "number"
+                          ? num_inference_steps
+                          : 1
+                      }
+                    />
+                  </Col>
+                  <Col span={4}>
+                    <InputNumber
+                      min={1}
+                      max={20}
+                      style={{ margin: "0 16px" }}
+                      value={
+                        typeof num_inference_steps === "number"
+                          ? num_inference_steps
+                          : 1
+                      }
+                      name="num_inference_steps"
+                      onChange={handleInputChange}
+                    />
+                  </Col>
+                </Row>
               </div>
               <div className="innerdiv">
-                <label>Steps</label>
-                <input
-                  type="range"
-                  id="slider"
-                  min="0"
-                  max="100"
-                  step="1"
-                  value="50"
-                />
+                <h3>Guidance Scale</h3>
+                <Row>
+                  <Col span={12}>
+                    <Slider
+                      min={1}
+                      max={20}
+                      onChange={(value) =>
+                        handleInputChange({
+                          target: { name: "guidance_scale", value },
+                        })
+                      }
+                      value={guidance_scale}
+                    />
+                  </Col>
+                  <Col span={4}>
+                    <InputNumber
+                      min={1}
+                      max={20}
+                      style={{ margin: "0 16px" }}
+                      name="guidance_scale"
+                      value={guidance_scale}
+                      onChange={handleInputChange}
+                    />
+                  </Col>
+                </Row>
               </div>
             </>
           )}
-          <button onClick={() => fetchData()}>Generate</button>
+          <button onClick={() => fetchData()} className="genratebtn">
+            Generate
+          </button>
         </div>
       </div>
       <div className="right">
