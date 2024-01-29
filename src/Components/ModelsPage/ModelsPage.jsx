@@ -50,7 +50,7 @@ const ModelsPage = () => {
       </div>
       <div className="imgdiv" >
       
-        <div>
+        {/* <div>
           <img src='https://www.segmind.com/_next/image?url=https%3A%2F%2Fwww.segmind.com%2Fsd-img2img.jpeg&w=1080&q=75'/>
         </div>
         <div>
@@ -61,7 +61,7 @@ const ModelsPage = () => {
         </div>
         <div>
         <img src='https://www.segmind.com/sdxl2.jpeg' alt='img1'/>
-        </div>
+        </div> */}
       </div>
       </div>
       
